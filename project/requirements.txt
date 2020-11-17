@@ -1,1 +1,7 @@
-
+matplotlib
+aequitas
+ipykernel
+jupyterlab
+seaborn
+numpy
+pandas
