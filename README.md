@@ -48,7 +48,7 @@ Using Anaconda consists of the following:
 For Windows users, these following commands need to be executed from the **Anaconda prompt** as opposed to a Windows terminal window. For Mac, a normal terminal window will work. 
 ## Getting Started
 
-Follow the instructions in `starter_code/student_project.ipynb` and be sure to set up your Anaconda environment to get started!
+Follow the instructions in `starter_code/hospital_time_predictor_project.ipynb` and be sure to set up your Anaconda environment to get started!
 
 
 ### Dependencies
