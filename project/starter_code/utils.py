@@ -19,6 +19,44 @@ def aggregate_dataset(df, grouping_field_list,  array_field):
 
     return concat_df, dummy_col_list
 
+# Missing values function
+def check_null_values(df):
+    null_df = pd.DataFrame({'columns': df.columns, 
+                            'percent_null': df.isnull().sum() * 100 / len(df), 
+                           'percent_zero':  df.isin([0]).sum() * 100 / len(df)
+                           } )
+    return null_df 
+
+#create a function for counting the cardinality of features
+def count_unique_values(df, cat_col_list):
+    cat_df = df[cat_col_list]
+    val_df = pd.DataFrame({'columns': cat_df.columns, 
+                       'cardinality': cat_df.nunique() } )
+    return val_df
+
+# Re-usable boxplot function
+def boxplot_los_groupby(variable, time_range=(0, 20), size=(8,4)):
+    ''' 
+    Boxplot of time in hospital by df categorical series name 
+    '''
+    results = analysis_df[[variable, 'time_in_hospital']].groupby(variable).median().reset_index()
+
+    categories = results[variable].values.tolist()
+
+    hist_data = []
+    for cat in categories:
+        hist_data.append(analysis_df['time_in_hospital'].loc[analysis_df[variable]==cat].values)
+
+    fig, ax = plt.subplots(figsize=size)
+    ax.boxplot(hist_data, 0, '', vert=False)
+    ax.set_xlim(time_range)
+    ax.set_yticklabels(categories)
+    ax.set_xlabel('Time in Hospital (days)')
+    ax.tick_params(left=False, right=False) 
+    ax.set_title('Comparison of {} categories'.format(variable))
+    plt.tight_layout()
+    plt.show();
+
 def cast_df(df, col, d_type=str):
     return df[col].astype(d_type)
 
